@@ -1,0 +1,16 @@
+data(mtcars)
+
+corr <- cor.test(mtcars$hp, mtcars$mpg, method = "pearson")
+cat("Correlation between MPG and HP is : ",round(corr$estimate,2),"\n")
+
+library(ggplot2)
+
+ggplot(mtcars, aes(sample = mpg)) +
+  stat_qq() +
+  stat_qq_line() +
+  labs(
+    title = "Q-Q Plot for MPG",
+    x = "Theoretical Quantiles",
+    y = "MPG Sample"
+  ) +
+  theme_minimal()
