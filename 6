@@ -1,0 +1,31 @@
+library(ggplot2)
+library(dplyr)
+
+data <- read.csv("C:/Users/jeeva/Downloads/medicalmalpractice.csv")
+
+summary(data$Amount)
+
+ggplot(data, aes(x = log10(Amount))) +
+  geom_histogram(fill = "lightblue", bins = 20) +
+  labs(
+    title = "Histogram of Claim Amounts",
+    x = "Log Amount",
+    y = "Frequency"
+  )
+
+top3 <- data %>%
+  count(Specialty) %>%
+  slice_max(n, n = 3) %>%
+  pull(Specialty)
+
+data %>%
+  filter(Specialty %in% top3) %>%
+  ggplot(aes(x = Specialty, y = Amount, fill = Specialty)) +
+  geom_boxplot() +
+  coord_flip()
+
+data %>%
+  count(Specialty) %>%
+  mutate(Percent = 100 * n / sum(n))
+
+cor.test(data$Age, data$Amount)
