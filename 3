@@ -1,0 +1,31 @@
+library(ggplot2)
+
+data = read.csv("C:/Users/jeeva/Downloads/stats lab dataset/pricequotes.csv")
+
+
+print(summary(data))
+
+n_barry <- length(data$Barry_Price)
+n_mary <- length(data$Mary_Price)
+
+sd_barry <- sd(data$Barry_Price)
+sd_mary <- sd(data$Mary_Price)
+
+se_barry <- sd_barry / sqrt(n_barry)
+se_mary <- sd_mary / sqrt(n_mary)
+
+cat("Mary: SD =", round(sd_mary, 2), " | SE =", round(se_mary, 2), "\n")
+cat("Barry: SD =", round(sd_barry, 2), " | SE =", round(se_barry, 2), "\n")
+
+ggplot(data) +
+  geom_boxplot(aes(x = "Barry", y = Barry_Price), fill = "skyblue") +
+  geom_boxplot(aes(x = "Mary", y = Mary_Price), fill = "lightgreen") +
+  labs(title = "BoxPlot of Price Quotes")
+
+cat("\nInterpretation:\n")
+
+cat("Standard Deviation (SD):", sd_mary,
+    "- shows how much individual quotes from Mary vary from her average quote.\n")
+
+cat("Standard Error of Mean (SEM):", se_mary,
+    "- shows how precise Mary's mean quote is, based on sample size.\n")
