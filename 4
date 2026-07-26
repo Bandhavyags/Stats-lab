@@ -1,0 +1,26 @@
+library(dplyr)
+library(ggplot2)
+
+df <- read.csv("C:/Users/jeeva/Downloads/treatmentfacility.csv")
+
+df$Reengineer <- factor(df$Reengineer, levels = c("Prior", "Post"))
+
+summary_stats <- df %>%
+  group_by(Reengineer) %>%
+  summarize(
+    n = n(),
+    mean_turnover = mean(Employee_Turnover),
+    sd_turnover = sd(Employee_Turnover),
+    mean_TRFF = mean(TRFF),
+    sd_TRFF = sd(TRFF)
+  )
+
+print(summary_stats)
+
+ggplot(df, aes(Reengineer, Employee_Turnover, fill = Reengineer)) +
+  geom_boxplot() +
+  labs(title = "Employee Turnover Before and After Reengineering")
+
+ggplot(df, aes(Reengineer, TRFF, fill = Reengineer)) +
+  geom_boxplot() +
+  labs(title = "TRFF Before and After Reengineering")
