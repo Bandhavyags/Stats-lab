@@ -1,0 +1,22 @@
+library(GGally)
+
+fitness <- read.csv("C:/Users/hp/Desktop/Stats Lab Dataset/CardioGoodFitness.csv")
+
+numeric_data <- fitness[sapply(fitness, is.numeric)]
+
+ggpairs(numeric_data)
+
+cor_matrix <- cor(numeric_data, use = "complete.obs")
+
+print(cor_matrix)
+
+cor_values <- subset(as.data.frame(as.table(cor_matrix)), Var1 != Var2)
+
+strongest_pos <- cor_values[which.max(cor_values$Freq), ]
+strongest_neg <- cor_values[which.min(cor_values$Freq), ]
+
+cat("Strongest Positive Correlation:\n")
+print(strongest_pos)
+
+cat("\nStrongest Negative Correlation:\n")
+print(strongest_neg)
