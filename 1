@@ -1,0 +1,14 @@
+data(mtcars)
+head(mtcars)
+
+cor(mtcars$mpg, mtcars$hp)
+
+library(ggplot2)
+
+ggplot(mtcars, aes(hp, mpg)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE) +
+  labs(title="MPG vs HP",
+              x="HorsePower",
+              y="Mileage Per Gallon")+
+         theme_minimal()
